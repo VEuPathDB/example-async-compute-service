@@ -1,13 +1,16 @@
 package org.veupathdb.service.demo.generated.resources;
 
 import java.util.List;
+import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
+import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.GenericEntity;
 import jakarta.ws.rs.core.Response;
 import org.veupathdb.service.demo.generated.model.ForbiddenError;
+import org.veupathdb.service.demo.generated.model.JobBulkStatusResponse;
 import org.veupathdb.service.demo.generated.model.JobResponse;
 import org.veupathdb.service.demo.generated.model.NotFoundError;
 import org.veupathdb.service.demo.generated.model.ServerError;
@@ -33,6 +36,12 @@ public interface Jobs {
   })
   GetJobsFilesByJobIdAndFileNameResponse getJobsFilesByJobIdAndFileName(
       @PathParam("job-id") String jobId, @PathParam("file-name") String fileName);
+
+  @POST
+  @Path("/statuses")
+  @Produces("application/json")
+  @Consumes("application/json")
+  PostJobsStatusesResponse postJobsStatuses(List<String> entity);
 
   class GetJobsByJobIdResponse extends ResponseDelegate {
     private GetJobsByJobIdResponse(Response response, Object entity) {
@@ -147,6 +156,29 @@ public interface Jobs {
         headerMap.put("Content-Disposition", String.valueOf(p));;
         return this;
       }
+    }
+  }
+
+  class PostJobsStatusesResponse extends ResponseDelegate {
+    private PostJobsStatusesResponse(Response response, Object entity) {
+      super(response, entity);
+    }
+
+    private PostJobsStatusesResponse(Response response) {
+      super(response);
+    }
+
+    public static PostJobsStatusesResponse respond200WithApplicationJson(
+        JobBulkStatusResponse entity) {
+      Response.ResponseBuilder responseBuilder = Response.status(200).header("Content-Type", "application/json");
+      responseBuilder.entity(entity);
+      return new PostJobsStatusesResponse(responseBuilder.build(), entity);
+    }
+
+    public static PostJobsStatusesResponse respond500WithApplicationJson(ServerError entity) {
+      Response.ResponseBuilder responseBuilder = Response.status(500).header("Content-Type", "application/json");
+      responseBuilder.entity(entity);
+      return new PostJobsStatusesResponse(responseBuilder.build(), entity);
     }
   }
 }

@@ -27,14 +27,11 @@ COPY gradle gradle
 # cache build environment
 RUN make install-dev-env
 
-# cache gradle and dependencies installation
-RUN ./gradlew dependencies
-
 # copy remaining files
 COPY . .
 
 # build the project
-RUN make jar
+RUN ./gradlew clean test shadowJar
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 #

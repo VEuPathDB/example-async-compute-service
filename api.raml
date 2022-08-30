@@ -248,3 +248,47 @@ uses:
               body:
                 application/json:
                   type: error.ServerError
+
+  /statuses:
+    post:
+      description: |
+        Lookup the statuses for the list of job IDs posted.
+        
+        The response will be a mapping whose keys are the posted job IDs and
+        whose values are the status of the job represented by the associated ID.
+        
+        If a job ID in the input list does not appear to be a real/valid job ID,
+        the ID will be omitted from the response object.
+        
+        Each status value will be a valid JobStatus enum item, meaning they will
+        each be one of:
+        
+        * "queued"
+        * "in-progress"
+        * "complete"
+        * "failed"
+        * "expired"
+      body:
+        application/json:
+          type: array
+          items:
+            type: string
+            minLength: 32
+            maxLength: 32
+            pattern: '^[\dA-Fa-f]{32}$'
+      responses:
+        200:
+          description: Success
+          body:
+            application/json:
+              type: lib.JobBulkStatusResponse
+        500:
+          description: |
+            Internal Server Error
+            
+            An unexpected exception was thrown while attempting to process
+            the request.
+          body:
+            application/json:
+              type: error.ServerError
+

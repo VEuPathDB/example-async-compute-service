@@ -4,9 +4,14 @@ import jakarta.ws.rs.ForbiddenException;
 import jakarta.ws.rs.NotFoundException;
 import jakarta.ws.rs.core.StreamingOutput;
 import org.veupathdb.lib.compute.platform.AsyncPlatform;
+import org.veupathdb.lib.hash_id.HashID;
+import org.veupathdb.service.demo.generated.model.JobBulkStatusResponseImpl;
 import org.veupathdb.service.demo.generated.resources.Jobs;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class JobController extends Controller implements Jobs {
 
@@ -30,6 +35,35 @@ public class JobController extends Controller implements Jobs {
       out.add(res.getName());
 
     return GetJobsFilesByJobIdResponse.respond200WithApplicationJson(out);
+  }
+
+  @Override
+  public PostJobsStatusesResponse postJobsStatuses(List<String> entity) {
+    // Create a response object
+    var out = new JobBulkStatusResponseImpl();
+
+    // Iterate through the input IDs
+    entity.stream()
+      // Attempt to parse the input strings to HashID instances
+      .map(this::hashIDOrNull)
+      // Remove the invalids
+      .filter(Objects::nonNull)
+      // Lookup the job for each of the valid HashID instances
+      .map(AsyncPlatform::getJob)
+      // Remove not-found jobs
+      .filter(Objects::nonNull)
+      // Append the statuses to the outgoing response object.
+      .forEach(it -> out.setAdditionalProperties(it.getJobID().getString(), it.getStatus().toString()));
+
+    return PostJobsStatusesResponse.respond200WithApplicationJson(out);
+  }
+
+  private HashID hashIDOrNull(String rawID) {
+    try {
+      return new HashID(rawID);
+    } catch (Exception e) {
+      return null;
+    }
   }
 
   @Override
