@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 APP_PACKAGE  := $(shell ./gradlew -q print-package | tail -1)
 MAIN_DIR     := src/main/java/$(shell echo $(APP_PACKAGE) | sed 's/\./\//g')
 TEST_DIR     := $(shell echo $(MAIN_DIR) | sed 's/main/test/')
@@ -8,10 +9,13 @@ C_NONE := "\\033[0m"
 C_CYAN := "\\033[36m"
 C_RED  := "\\033[31m"
 
+=======
+>>>>>>> template/master
 #
-# Meta Targets
+# Development environment setup / teardown
 #
 
+<<<<<<< HEAD
 .PHONY: help
 help:
 	@echo "Targets:\n`cat makefile | grep '^[a-z\-]\+:' | sed 's/:.*//;s/^/  /'`"
@@ -47,72 +51,46 @@ merge-template-repo:
 	@git fetch template
 	@git merge template/master
 
+=======
+>>>>>>> template/master
 .PHONY: install-dev-env
 install-dev-env:
-	@if [ ! -d .tools ]; then \
-	  git clone https://github.com/VEuPathDB/lib-jaxrs-container-build-utils .tools; \
-	else \
-	  cd .tools && \
-	  git pull && \
-	  cd ..; \
-	fi
-	@./gradlew check-env install-raml-4-jax-rs
-	@$(BIN_DIR)/install-raml-merge.sh
-	@$(BIN_DIR)/install-npm.sh
+	./gradlew check-env
 
+.PHONY: clean
+clean:
+	@rm -rf .bin .gradle .tools build vendor
 
 #
 # Build & Test Targets
 #
 
 .PHONY: compile
-compile: install-dev-env gen-jaxrs
-	@./gradlew clean compile
+compile:
+	./gradlew clean compileJava
 
 .PHONY: test
-test: install-dev-env gen-jaxrs gen-docs
-	@./gradlew clean test
+test:
+	./gradlew clean test
 
 .PHONY: jar
-jar: install-dev-env gen-jaxrs gen-docs build/libs/service.jar
+jar: build/libs/service.jar
 
 .PHONY: docker
 docker:
-	@./gradlew build-docker --stacktrace
-
+	./gradlew build-docker --stacktrace
 
 #
 # Code & Doc Generation
 #
 
-.PHONY: gen-jaxrs
-gen-jaxrs: raml-gen-code
-	@echo
-	@echo "$(C_RED)THIS MAKE TARGET IS DEPRECATED AND WILL BE REMOVED IN THE FUTURE$(C_NONE)"
-	@echo "PLEASE SHIFT TO USING \"raml-gen-code\" INSTEAD"
-	@echo
-
 .PHONY: raml-gen-code
-raml-gen-code: api.raml merge-raml
-	@./gradlew generate-jaxrs
-	@$(BIN_DIR)/generate-jaxrs-streams.sh $(APP_PACKAGE)
-	@$(BIN_DIR)/generate-jaxrs-postgen-mods.sh $(APP_PACKAGE)
-
-# See raml-gen-docs
-.PHONY: gen-docs
-gen-docs: raml-gen-docs
-	@echo
-	@echo "$(C_RED)THIS MAKE TARGET IS DEPRECATED AND WILL BE REMOVED IN THE FUTURE$(C_NONE)"
-	@echo "PLEASE SHIFT TO USING \"raml-gen-docs\" INSTEAD"
-	@echo
+raml-gen-code:
+	./gradlew generate-jaxrs
 
 .PHONY: raml-gen-docs
-raml-gen-docs: api.raml merge-raml
-	@./gradlew generate-raml-docs
-
-.PHONY: merge-raml
-merge-raml:
-	@$(BIN_DIR)/merge-raml schema > schema/library.raml
+raml-gen-docs:
+	./gradlew generate-raml-docs
 
 
 .PHONY: example-build
@@ -134,6 +112,10 @@ example-clean:
 #
 
 build/libs/service.jar: build.gradle.kts
+<<<<<<< HEAD
 	@echo "$(C_BLUE)Building application jar$(C_NONE)"
 	@./gradlew clean test shadowJar
 
+=======
+	./gradlew clean test generate-raml-docs shadowJar
+>>>>>>> template/master

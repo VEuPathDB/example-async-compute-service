@@ -2,7 +2,11 @@ import org.veupathdb.lib.gradle.container.util.Logger.Level
 
 plugins {
   java
+<<<<<<< HEAD
   id("org.veupathdb.lib.gradle.container.container-utils") version "4.0.0"
+=======
+  id("org.veupathdb.lib.gradle.container.container-utils") version "4.3.0"
+>>>>>>> template/master
   id("com.github.johnrengelman.shadow") version "7.1.2"
 }
 
@@ -99,6 +103,7 @@ dependencies {
 
   // Jersey
   implementation("org.glassfish.jersey.core:jersey-server:3.0.6")
+<<<<<<< HEAD
 
   // Async platform core
   implementation("org.veupathdb.lib:compute-platform:1.0.0")
@@ -121,11 +126,14 @@ dependencies {
   // Only required if your project adds custom CLI/environment options, see
   // the "MyOptions" class in the demo source code.
   implementation("info.picocli:picocli:4.6.3")
+=======
+>>>>>>> template/master
 
   // Jackson
   // Only required if you are going to be directly using Jackson's JSON api.
   implementation("org.veupathdb.lib:jackson-singleton:3.0.0")
 
+<<<<<<< HEAD
   // Prometheus Metrics Gathering
   // Only required if your project will be doing custom metric reporting outside
   // of the metrics provided by the container core library.
@@ -143,4 +151,18 @@ dependencies {
 
   // Mockito Test Mocking
   testImplementation("org.mockito:mockito-core:4.7.0")
+=======
+  // Log4J
+  implementation("org.apache.logging.log4j:log4j-api:2.18.0")
+  implementation("org.apache.logging.log4j:log4j-core:2.18.0")
+
+  // Metrics (can remove if not adding custom service metrics over those provided by container core)
+  implementation("io.prometheus:simpleclient:0.16.0")
+  implementation("io.prometheus:simpleclient_common:0.16.0")
+
+  // Unit Testing
+  testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.0")
+  testImplementation("org.mockito:mockito-core:4.7.0")
+  testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.9.0")
+>>>>>>> template/master
 }
