@@ -71,6 +71,7 @@ public class Main extends Server {
         .accessToken(options.getS3AccessToken())
         .secretKey(options.getS3SecretKey())
         .port(options.getS3Port())
+        .https(true)
         .build())
       .jobConfig(AsyncJobConfig.builder()
         .executorFactory(new MyExecutorFactory())
