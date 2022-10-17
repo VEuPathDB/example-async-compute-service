@@ -2,7 +2,7 @@ import org.veupathdb.lib.gradle.container.util.Logger.Level
 
 plugins {
   java
-  id("org.veupathdb.lib.gradle.container.container-utils") version "4.4.0"
+  id("org.veupathdb.lib.gradle.container.container-utils") version "4.5.2"
   id("com.github.johnrengelman.shadow") version "7.1.2"
 }
 
@@ -101,7 +101,7 @@ dependencies {
   implementation("org.glassfish.jersey.core:jersey-server:3.0.8")
 
   // Async platform core
-  implementation("org.veupathdb.lib:compute-platform:1.2.2")
+  implementation("org.veupathdb.lib:compute-platform:1.3.1")
 
   // Job IDs
   implementation("org.veupathdb.lib:hash-id:1.1.0")
