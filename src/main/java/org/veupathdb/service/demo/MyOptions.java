@@ -225,7 +225,7 @@ public class MyOptions extends Options {
     arity = "1"
   )
   private Boolean s3UseHttps;
-  private static final boolean DEFAULT_S3_USE_HTTPS = false;
+  private static final boolean DEFAULT_S3_USE_HTTPS = true;
 
   public String getS3Host() {
     return s3Host;
