@@ -3,9 +3,13 @@ package org.veupathdb.service.demo;
 import org.veupathdb.lib.compute.platform.AsyncPlatform;
 import org.veupathdb.lib.compute.platform.config.*;
 import org.veupathdb.lib.container.jaxrs.config.Options;
+import org.veupathdb.lib.container.jaxrs.providers.DependencyProvider;
 import org.veupathdb.lib.container.jaxrs.server.ContainerResources;
 import org.veupathdb.lib.container.jaxrs.server.Server;
 import org.veupathdb.service.demo.async.MyExecutorFactory;
+import org.veupathdb.service.demo.health.PostgresDependency;
+import org.veupathdb.service.demo.health.RabbitMQDependency;
+import org.veupathdb.service.demo.health.S3Dependency;
 
 public class Main extends Server {
   private final MyOptions options = new MyOptions();
@@ -37,6 +41,7 @@ public class Main extends Server {
   @Override
   protected void postCliParse(Options opts) {
     initializeAsyncPlatform();
+    registerPlatformDependencies();
   }
 
   private void initializeAsyncPlatform() {
@@ -78,5 +83,13 @@ public class Main extends Server {
         .expirationDays(options.getJobCacheTimeoutDays())
         .build())
       .build());
+  }
+
+  private void registerPlatformDependencies() {
+    var depProv = DependencyProvider.getInstance();
+
+    depProv.register(new RabbitMQDependency("job-queue", options.getJobQueueHost(), options.getJobQueuePort()));
+    depProv.register(new S3Dependency("s3", options.getS3Host(), options.getS3Port()));
+    depProv.register(new PostgresDependency("queue-db", options.getQueueDBHost(), options.getQueueDBPort()));
   }
 }
