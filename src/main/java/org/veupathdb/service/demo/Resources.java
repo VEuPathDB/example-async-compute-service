@@ -8,7 +8,7 @@ import org.veupathdb.service.demo.service.ReverseController;
 
 /**
  * Service Resource Registration.
- *
+ * <p>
  * This is where all the individual service specific resources and middleware
  * should be registered.
  */
@@ -19,7 +19,7 @@ public class Resources extends ContainerResources {
 
   /**
    * Returns an array of JaxRS endpoints, providers, and contexts.
-   *
+   * <p>
    * Entries in the array can be either classes or instances.
    */
   @Override

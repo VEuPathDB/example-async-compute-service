@@ -5,7 +5,7 @@ import picocli.CommandLine.Option;
 
 /**
  * Customized options example.
- *
+ * <p>
  * Configures details for the queues, s3, and postgres database.
  */
 public class MyOptions extends Options {
