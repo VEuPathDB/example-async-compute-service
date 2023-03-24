@@ -68,13 +68,18 @@ uses:
           application/json:
             type: error.ServerError
 
-# TODO: need the file upload patch in the gradle plugin for this
 /word-count:
   post:
     description: Counts the words in an uploaded file.
     body:
       multipart/form-data:
-        type: file
+        type: object
+        properties:
+          uploadMethod:
+            type: string
+            enum: [ 'url', 'file' ]
+          url?: string
+          file?: file
     responses:
       200:
         description: |

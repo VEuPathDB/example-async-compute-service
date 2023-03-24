@@ -40,10 +40,7 @@ services:
       RABBITMQ_DEFAULT_USER: demouser
       RABBITMQ_DEFAULT_PASS: demopass
 
-  service:
-    build:
-      dockerfile: Dockerfile
-      context: ..
+  example:
     ports:
       - "8080:8080"
     depends_on:

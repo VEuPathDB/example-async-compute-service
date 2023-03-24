@@ -1,6 +1,5 @@
 package org.veupathdb.service.demo.generated.resources;
 
-import java.io.File;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
@@ -8,6 +7,7 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.Response;
 import org.veupathdb.service.demo.generated.model.JobResponse;
 import org.veupathdb.service.demo.generated.model.ServerError;
+import org.veupathdb.service.demo.generated.model.WordCountPostMultipartFormData;
 import org.veupathdb.service.demo.generated.support.ResponseDelegate;
 
 @Path("/word-count")
@@ -15,7 +15,7 @@ public interface WordCount {
   @POST
   @Produces("application/json")
   @Consumes("multipart/form-data")
-  PostWordCountResponse postWordCount(File entity);
+  PostWordCountResponse postWordCount(WordCountPostMultipartFormData entity);
 
   class PostWordCountResponse extends ResponseDelegate {
     private PostWordCountResponse(Response response, Object entity) {

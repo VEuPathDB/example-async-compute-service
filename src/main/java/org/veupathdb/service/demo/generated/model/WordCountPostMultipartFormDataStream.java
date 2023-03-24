@@ -8,11 +8,11 @@ import java.util.function.Consumer;
 import jakarta.ws.rs.WebApplicationException;
 import jakarta.ws.rs.core.StreamingOutput;
 
-public class HelloPostRequestStream extends HelloPostRequestImpl implements StreamingOutput {
+public class WordCountPostMultipartFormDataStream extends WordCountPostMultipartFormDataImpl implements StreamingOutput {
 
   private final Consumer<OutputStream> _streamer;
 
-  public HelloPostRequestStream(Consumer<OutputStream> streamer) {
+  public WordCountPostMultipartFormDataStream(Consumer<OutputStream> streamer) {
     _streamer = streamer;
   }
 

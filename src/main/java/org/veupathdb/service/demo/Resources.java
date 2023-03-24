@@ -2,9 +2,9 @@ package org.veupathdb.service.demo;
 
 import org.veupathdb.lib.container.jaxrs.config.Options;
 import org.veupathdb.lib.container.jaxrs.server.ContainerResources;
-import org.veupathdb.service.demo.service.Controller;
 import org.veupathdb.service.demo.service.JobController;
 import org.veupathdb.service.demo.service.ReverseController;
+import org.veupathdb.service.demo.service.WordCountController;
 
 /**
  * Service Resource Registration.
@@ -27,6 +27,7 @@ public class Resources extends ContainerResources {
     return new Object[] {
       JobController.class,
       ReverseController.class,
+      WordCountController.class
     };
   }
 }
