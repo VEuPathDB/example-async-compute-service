@@ -2,7 +2,7 @@ import org.veupathdb.lib.gradle.container.util.Logger.Level
 
 plugins {
   java
-  id("org.veupathdb.lib.gradle.container.container-utils") version "4.5.3"
+  id("org.veupathdb.lib.gradle.container.container-utils") version "4.8.3"
   id("com.github.johnrengelman.shadow") version "7.1.2"
 }
 
@@ -41,18 +41,8 @@ containerBuild {
     dockerFile = "Dockerfile"
 
     // Resulting image tag
-    imageName = "example-service"
+    imageName = "example-async-service"
 
-  }
-
-  generateJaxRS {
-    // List of custom arguments to use in the jax-rs code generation command
-    // execution.
-    arguments = listOf(/*arg1, arg2, arg3*/)
-
-    // Map of custom environment variables to set for the jax-rs code generation
-    // command execution.
-    environment = mapOf(/*Pair("env-key", "env-val"), Pair("env-key", "env-val")*/)
   }
 }
 
@@ -95,21 +85,21 @@ dependencies {
   // repository:
 
   // Core lib
-  implementation("org.veupathdb.lib:jaxrs-container-core:6.10.1")
+  implementation("org.veupathdb.lib:jaxrs-container-core:6.14.4")
 
   // Jersey
-  implementation("org.glassfish.jersey.core:jersey-server:3.0.8")
+  implementation("org.glassfish.jersey.core:jersey-server:3.1.1")
 
   // Async platform core
-  implementation("org.veupathdb.lib:compute-platform:1.3.5")
+  implementation("org.veupathdb.lib:compute-platform:1.5.0")
 
   // Job IDs
   implementation("org.veupathdb.lib:hash-id:1.1.0")
 
   // Logging
   implementation("org.slf4j:slf4j-api:1.7.36")
-  implementation("org.apache.logging.log4j:log4j-core:2.19.0")
-  runtimeOnly("org.apache.logging.log4j:log4j-slf4j-impl:2.19.0")
+  implementation("org.apache.logging.log4j:log4j-core:2.20.0")
+  runtimeOnly("org.apache.logging.log4j:log4j-slf4j-impl:2.20.0")
 
 
   // Example Dependencies
@@ -120,7 +110,7 @@ dependencies {
   // Pico CLI
   // Only required if your project adds custom CLI/environment options, see
   // the "MyOptions" class in the demo source code.
-  implementation("info.picocli:picocli:4.6.3")
+  implementation("info.picocli:picocli:4.7.1")
 
   // Jackson
   // Only required if you are going to be directly using Jackson's JSON api.
@@ -138,9 +128,9 @@ dependencies {
   // These dependencies are not required, but are recommended.
 
   // JUnit 5
-  testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.0")
-  testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.9.0")
+  testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.2")
+  testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.9.2")
 
   // Mockito Test Mocking
-  testImplementation("org.mockito:mockito-core:4.7.0")
+  testImplementation("org.mockito:mockito-core:5.2.0")
 }

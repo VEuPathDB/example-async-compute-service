@@ -8,11 +8,11 @@ import java.util.function.Consumer;
 import jakarta.ws.rs.WebApplicationException;
 import jakarta.ws.rs.core.StreamingOutput;
 
-public class AnotherTypeStream extends AnotherTypeImpl implements StreamingOutput {
+public class ReverseRequestStream extends ReverseRequestImpl implements StreamingOutput {
 
   private final Consumer<OutputStream> _streamer;
 
-  public AnotherTypeStream(Consumer<OutputStream> streamer) {
+  public ReverseRequestStream(Consumer<OutputStream> streamer) {
     _streamer = streamer;
   }
 

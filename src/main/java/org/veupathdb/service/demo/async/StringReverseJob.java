@@ -11,7 +11,7 @@ public class StringReverseJob implements JobExecutor {
   @NotNull
   @Override
   public JobResult execute(@NotNull JobContext jobContext) {
-    var config = Json.parse(jobContext.getConfig(), ReverseRequest.class);
+    var config = Json.parse(jobContext.getConfig().get("config"), ReverseRequest.class);
     var input  = config.getInput();
 
     var out = new char[input.length()];
